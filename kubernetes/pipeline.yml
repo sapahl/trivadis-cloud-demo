@@ -1,0 +1,20 @@
+kind: BuildConfig
+apiVersion: v1
+metadata:
+  name: trivadis-cloud-demo-pipeline
+  labels:
+    app: trivadis-cloud-demo
+spec:
+  resources:
+    requests:
+      cpu: 2000Mi
+      memory: 1G
+  source:
+    git:
+      ref: master
+      uri: "https://github.com/sapahl/trivadis-cloud-demo.git"
+    type: Git
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
