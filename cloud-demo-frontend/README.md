@@ -52,3 +52,9 @@ oc new-app --image-stream trivadis-cloud-demo/frontend --name frontend
 ```
 oc delete all --selector app=frontend
 ```
+
+## Pipeline
+Change maven agent to image
+```
+docker.io/viniciuseduardorj/jenkins-agent-maven-java11-centos7:v3.11
+```

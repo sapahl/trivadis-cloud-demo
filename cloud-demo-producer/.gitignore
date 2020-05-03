@@ -35,5 +35,4 @@ pom.xml.versionsBackup
 release.properties
 
 # Keys
-/src/main/resources/keystore.jks
 /src/main/resources/ca.crt
