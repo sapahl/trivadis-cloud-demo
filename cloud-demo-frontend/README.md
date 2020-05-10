@@ -29,14 +29,25 @@ You can then execute your native executable with: `./target/cloud-demo-frontend-
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
 
-## Steps
+## Demo installation steps
 - Install Minishift and create an OpenShift Cluster
-- Create Kafka Operator
-- Create Kafka Cluster
-- Retrieve Key for TLS encryption
+- Give Developer admin role
 ```
-oc extract secret/kafka-cluster-cluster-ca-cert --keys=ca.crt --to=- > src/main/resources/ca.crt
-keytool -import -trustcacerts -alias root -file src/main/resources/ca.crt -keystore src/main/resources/keystore.jks -storepass password -noprompt
+oc adm policy add-cluster-role-to-user cluster-admin developer
+```
+- Create new Project
+```
+oc new-project trivadis-cloud-demo --display-name="Trivadis Cloud Demo Project"
+oc project trivadis-cloud-demo
+```
+- Create Kafka Operator
+```
+oc apply -f kubernetes/kafka.yml
+```
+Information: kafka.yml has been generated using https://strimzi.io/install/latest?namespace=trivadis.cloud-demo
+- Create Kafka Cluster
+```
+oc apply -f kubernetes/kafka-cluster.yml
 ```
 - Create new build
 ```
@@ -48,13 +59,21 @@ oc start-build --from-dir . frontend
 oc new-app --image-stream trivadis-cloud-demo/frontend --name frontend
 ```
 
+## Pipeline
+Change maven build agent to image
+```
+docker.io/viniciuseduardorj/jenkins-agent-maven-java11-centos7:v3.11
+```
+
 ## Cleanup
 ```
 oc delete all --selector app=frontend
 ```
 
-## Pipeline
-Change maven agent to image
+### TLS encryption
+When accessing using tls you need to extract the tlc certificates
+- Retrieve Key for TLS encryption
 ```
-docker.io/viniciuseduardorj/jenkins-agent-maven-java11-centos7:v3.11
+oc extract secret/kafka-cluster-cluster-ca-cert --keys=ca.crt --to=- > src/main/resources/ca.crt
+keytool -import -trustcacerts -alias root -file src/main/resources/ca.crt -keystore src/main/resources/keystore.jks -storepass password -noprompt
 ```

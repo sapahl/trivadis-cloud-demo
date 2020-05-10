@@ -36,3 +36,4 @@ release.properties
 
 # Keys
 /src/main/resources/ca.crt
+/src/main/resources/keystore.jks
