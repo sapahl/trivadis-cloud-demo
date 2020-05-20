@@ -1,4 +1,4 @@
-# cloud-demo-frontend project
+# Trivadis Cloud Demo Project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -45,7 +45,7 @@ You can find the following commands in [Startup Script](startup.cmd)
 ```
 oc apply -f kubernetes/kafka.yml
 ```
-Information: kafka.yml has been generated using https://strimzi.io/install/latest?namespace=trivadis.cloud-demo
+Information: [kafka.yml](kubernetes/kafka.yml) has been generated using https://strimzi.io/install/latest?namespace=trivadis.cloud-demo
 - Create Kafka Cluster
 ```
 oc apply -f kubernetes/kafka-cluster.yml
