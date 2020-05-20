@@ -40,6 +40,7 @@ oc adm policy add-cluster-role-to-user cluster-admin developer
 oc new-project trivadis-cloud-demo --display-name="Trivadis Cloud Demo Project"
 oc project trivadis-cloud-demo
 ```
+You can find the following commands in [Startup Script](startup.cmd)
 - Create Kafka Operator
 ```
 oc apply -f kubernetes/kafka.yml
@@ -49,14 +50,37 @@ Information: kafka.yml has been generated using https://strimzi.io/install/lates
 ```
 oc apply -f kubernetes/kafka-cluster.yml
 ```
+### Frontend
 - Create new build
 ```
-oc new-build --strategy docker --dockerfile - --code . --name frontend < src\main\docker\Dockerfile.jvm
-oc start-build --from-dir . frontend 
+oc new-build --strategy docker --dockerfile - --code cloud-demo-frontend --name frontend < cloud-demo-frontend\src\main\docker\Dockerfile.jvm
+oc start-build --from-dir cloud-demo-frontend frontend
 ```
 - Create new Application
 ```
 oc new-app --image-stream trivadis-cloud-demo/frontend --name frontend
+```
+
+### Processor
+- Create new build
+```
+oc new-build --strategy docker --dockerfile - --code cloud-demo-processor --name processor < cloud-demo-processor\src\main\docker\Dockerfile.jvm
+oc start-build --from-dir cloud-demo-processor processor
+```
+- Create new Application
+```
+oc new-app --image-stream trivadis-cloud-demo/processor --name processor
+```
+
+### Producer
+- Create new build
+```
+oc new-build --strategy docker --dockerfile - --code cloud-demo-producer --name producer < cloud-demo-producer\src\main\docker\Dockerfile.jvm
+oc start-build --from-dir cloud-demo-producer producer
+```
+- Create new Application
+```
+oc new-app --image-stream trivadis-cloud-demo/producer --name producer
 ```
 
 ## Pipeline
@@ -66,9 +90,7 @@ docker.io/viniciuseduardorj/jenkins-agent-maven-java11-centos7:v3.11
 ```
 
 ## Cleanup
-```
-oc delete all --selector app=frontend
-```
+See [Cleanup Script](cleanup.cmd)
 
 ### TLS encryption
 When accessing using tls you need to extract the tlc certificates
