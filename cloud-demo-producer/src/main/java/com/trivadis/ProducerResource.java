@@ -1,7 +1,6 @@
 package com.trivadis;
 
 
-
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;

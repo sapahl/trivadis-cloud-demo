@@ -1,14 +1,8 @@
 package com.trivadis;
 
 import io.reactivex.Flowable;
-import io.reactivex.processors.AsyncProcessor;
-import kafka.log.Log;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Message;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
-import org.jboss.resteasy.plugins.providers.CompletionStageProvider;
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +10,6 @@ import javax.enterprise.context.ApplicationScoped;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
-import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped

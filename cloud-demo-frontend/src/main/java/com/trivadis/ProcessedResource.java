@@ -2,7 +2,6 @@ package com.trivadis;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -44,7 +43,7 @@ public class ProcessedResource {
             int request = counter.getAndIncrement();
             String item;
             healthCheck.setStatus(HealthCheckResponse.up("Waiting for work item"));
-            while ( request+1 == counter.get() && (item = cache.poll(1, TimeUnit.MINUTES)) != null ) {
+            while (request + 1 == counter.get() && (item = cache.poll(1, TimeUnit.MINUTES)) != null) {
                 emitter.onNext(item);
                 LOG.info("Stream for request {} returns: {}", request, item);
                 healthCheck.setStatus(HealthCheckResponse.up("Receiving processed work items: " + item));

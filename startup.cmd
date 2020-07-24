@@ -1,5 +1,5 @@
 @REM Create Kafka
-oc create -f kubernetes\kafka-cluster.yml
+@REM oc create -f kubernetes\kafka-cluster.yml
 oc create -f kubernetes\kafka-topic.yml
 
 @REM Create Build Configuration Frontend

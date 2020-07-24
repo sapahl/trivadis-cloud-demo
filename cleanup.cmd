@@ -15,5 +15,5 @@ oc delete -f kubernetes\pipeline.yml
 
 @REM Cleanup kafka
 oc delete -f kubernetes\kafka-topic.yml
-oc delete -f kubernetes\kafka-cluster.yml
+@REM oc delete -f kubernetes\kafka-cluster.yml
 
